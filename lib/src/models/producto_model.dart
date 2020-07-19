@@ -14,6 +14,8 @@ class Productos {
 }
 
 class Producto {
+
+  String uniqueId;
   bool adult;
   String backdropPath;
   dynamic belongsToCollection;
@@ -41,6 +43,7 @@ class Producto {
   int voteCount;
 
   Producto({
+    
     this.adult,
     this.backdropPath,
     this.belongsToCollection,

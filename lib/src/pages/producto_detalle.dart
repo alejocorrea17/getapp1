@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:getapp/src/models/actores_model.dart';
 import 'package:getapp/src/models/producto_model.dart';
+import 'package:getapp/src/providers/productos_provider.dart';
 
 class ProductoDetalle extends StatelessWidget {
   @override
@@ -17,10 +19,8 @@ class ProductoDetalle extends StatelessWidget {
             ),
             _posterTitulo(context, producto),
             _descripcion(producto),
-
-          ]
-          )
-        )
+            _crearCasting(producto),
+          ]))
         ],
       ),
     );
@@ -30,7 +30,7 @@ class ProductoDetalle extends StatelessWidget {
     return SliverAppBar(
       elevation: 2.0,
       backgroundColor: Colors.blueAccent,
-      expandedHeight: 450.0,
+      expandedHeight: 350.0,
       floating: false,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
@@ -53,11 +53,14 @@ class ProductoDetalle extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
         children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child: Image(
-              image: NetworkImage(producto.getPosterImg()),
-              height: 150.0,
+          Hero(
+            tag: producto.uniqueId,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Image(
+                image: NetworkImage(producto.getPosterImg()),
+                height: 150.0,
+              ),
             ),
           ),
           SizedBox(
@@ -94,10 +97,66 @@ class ProductoDetalle extends StatelessWidget {
     );
   }
 
-  Widget _descripcion(Producto producto){
+  Widget _descripcion(Producto producto) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-      child: Text(producto.overview, textAlign: TextAlign.justify,),
+      child: Text(
+        producto.overview,
+        textAlign: TextAlign.justify,
+      ),
+    );
+  }
+
+  Widget _crearCasting(Producto producto) {
+    final productoProvider = ProductosProvider();
+
+    return FutureBuilder(
+      future: productoProvider.getCast(producto.id.toString()),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        if (snapshot.hasData) {
+          return _crearActoresPageView(snapshot.data);
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
+    );
+  }
+
+  Widget _crearActoresPageView(List<Actor> actores) {
+    return SizedBox(
+      height: 150.0,
+      child: PageView.builder(
+        controller: PageController(viewportFraction: 0.3, initialPage: 1),
+        itemCount: actores.length,
+        itemBuilder: (context, i) {
+          return _actorTarjeta(context, actores[i]);
+        },
+      ),
+    );
+  }
+
+  Widget _actorTarjeta(BuildContext context, Actor actor) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: FadeInImage(
+                placeholder: AssetImage('assets/img/no-image.jpg'),
+                image: NetworkImage(actor.getProfileImg()),
+                height: 120.0,
+                fit: BoxFit.cover,
+              )),
+          SizedBox(
+            height: 10.0,
+          ),
+          Text(
+            actor.name,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.caption,
+          ),
+        ],
+      ),
     );
   }
 }
