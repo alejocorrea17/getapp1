@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:getapp/src/blocs/login_bloc.dart';
 import 'package:getapp/src/blocs/provider.dart';
+import 'package:getapp/src/pages/tabs_page.dart';
 
 class InicioSesion extends StatelessWidget {
   @override
@@ -128,8 +129,9 @@ Widget _crearBoton(LoginBloc bloc) {
   );
 }
 
-_login(BuildContext context,LoginBloc bloc) {
-  Navigator.pushReplacementNamed(context, '/');
+_login(BuildContext context, LoginBloc bloc) {
+  Navigator.of(context)
+      .pushReplacement(MaterialPageRoute(builder: (context) => TabsPage()));
 }
 
 Widget _olvidoContrasena() {
@@ -166,7 +168,7 @@ Widget _crearFondo(BuildContext context) {
                 width: double.infinity,
               ),
               Text(
-                'Get it App',
+                'Smart Shopping',
                 style: TextStyle(color: Colors.white, fontSize: 25.0),
               )
             ],

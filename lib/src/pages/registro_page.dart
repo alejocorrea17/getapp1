@@ -229,7 +229,7 @@ Widget _crearBoton(RegistroBloc bloc) {
   );
 }
 
-_registro(BuildContext context, RegistroBloc bloc){
+_registro(BuildContext context, RegistroBloc bloc) {
   Navigator.pushNamed(context, 'login');
 }
 
@@ -263,7 +263,7 @@ Widget _crearFondo(BuildContext context) {
                 width: double.infinity,
               ),
               Text(
-                'Get it App',
+                'Smart Shopping',
                 style: TextStyle(color: Colors.white, fontSize: 25.0),
               )
             ],

@@ -12,7 +12,7 @@ class ProductosProvider {
   int _popularesPage = 0;
   bool _cargando = false;
 
-  List<Producto> _populares = new List();
+  List<Producto> _populares = [];
 
   final _popularesStreamController =
       StreamController<List<Producto>>.broadcast();
@@ -65,15 +65,12 @@ class ProductosProvider {
     return resp;
   }
 
-  Future<List<Actor>> getCast( String peliId) async {
-
-    final url = Uri.https(_url, '3/movie/$peliId/credits',{
-      'api_key' : _apiKey,
-      'language' : _language
-    });
+  Future<List<Actor>> getCast(String peliId) async {
+    final url = Uri.https(_url, '3/movie/$peliId/credits',
+        {'api_key': _apiKey, 'language': _language});
     final resp = await http.get(url);
     final decodedData = json.decode(resp.body);
-    
+
     final cast = new Cast.fromJsonList(decodedData['cast']);
 
     return cast.actores;
@@ -85,5 +82,4 @@ class ProductosProvider {
 
     return await _procesarRespuesta(url);
   }
-
 }

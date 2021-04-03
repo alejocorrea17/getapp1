@@ -39,6 +39,7 @@ class ProductosHorizontal extends StatelessWidget {
       margin: EdgeInsets.only(right: 15.0),
       child: Column(
         children: <Widget>[
+          //Este widgets se muestra como una transicion de la imagen entre las dos paginas
           Hero(
             tag: producto.uniqueId,
             child: ClipRRect(

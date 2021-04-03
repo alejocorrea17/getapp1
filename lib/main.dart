@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:getapp/src/blocs/provider.dart';
-//Importaciones propias
 import 'package:getapp/src/pages/home_page.dart';
+//Importaciones propias
+import 'package:getapp/src/pages/landing_page.dart';
 import 'package:getapp/src/pages/login_page.dart';
 import 'package:getapp/src/pages/producto_detalle.dart';
 import 'package:getapp/src/pages/registro_page.dart';
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return Provider(
         child: MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Get it App',
+      title: 'Smart Shopping',
       initialRoute: '/',
       routes: {
         '/': (BuildContext context) => HomePage(),
@@ -22,10 +23,7 @@ class MyApp extends StatelessWidget {
         'registro': (BuildContext context) => Registrarse(),
         'detalle': (BuildContext context) => ProductoDetalle(),
       },
-      theme: ThemeData(
-        primaryColor: Colors.blueAccent
-      ),
-    )
-  );
+      theme: ThemeData(primaryColor: Colors.blueAccent),
+    ));
   }
 }
