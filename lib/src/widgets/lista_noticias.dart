@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:getapp/src/models/news_models.dart';
+import 'package:getapp/src/models/product_model.dart';
+import 'package:getapp/src/pages/detalles_noticia.dart';
 import 'package:getapp/src/theme/tema.dart';
+import 'package:provider/provider.dart';
 
 class ListaNoticias extends StatelessWidget {
   final List<Article> noticias;
@@ -33,9 +36,9 @@ class _Noticia extends StatelessWidget {
       children: <Widget>[
         _TarjetaTopBar(noticia, index),
         _TarjetaTitulo(noticia),
-        _TarjetaImagen(noticia),
+        _TarjetaImagen(noticia, index),
         _TarjetaBody(noticia),
-        _TarjetaBotones(noticia),
+        _TarjetaBotones(noticia, false, false, ''),
         SizedBox(
           height: 10.0,
         ),
@@ -47,20 +50,33 @@ class _Noticia extends StatelessWidget {
 
 class _TarjetaBotones extends StatelessWidget {
   final Article noticia;
-  const _TarjetaBotones(this.noticia);
+
+  final bool liked;
+  final bool agregadoCarrito;
+  final String comentario;
+
+  _TarjetaBotones(
+      this.noticia, this.liked, this.agregadoCarrito, this.comentario);
 
   @override
   Widget build(BuildContext context) {
+    final productoModel = Provider.of<ProductoModelo>(context);
+
     return Container(
         child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         RawMaterialButton(
-          onPressed: () {},
+          onPressed: () {
+            final productoModel =
+                Provider.of<ProductoModelo>(context, listen: false);
+            productoModel.liked = this.liked;
+          },
           fillColor: miTema.accentColor,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Icon(Icons.star_border),
+          child: Icon(Icons.star,
+              color: (productoModel.liked) ? Colors.yellow : Colors.white),
         ),
         RawMaterialButton(
           onPressed: () {},
@@ -97,24 +113,34 @@ class _TarjetaBody extends StatelessWidget {
 
 class _TarjetaImagen extends StatelessWidget {
   final Article noticia;
+  final int index;
 
-  const _TarjetaImagen(this.noticia);
+  const _TarjetaImagen(this.noticia, this.index);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(50), bottomRight: Radius.circular(50)),
-        child: Container(
-            child: (noticia.urlToImage != null)
-                ? FadeInImage(
-                    placeholder: AssetImage('assets/img/giphy.gif'),
-                    image: NetworkImage(noticia.urlToImage))
-                : Image(
-                    image: AssetImage('assets/img/no-image.png'),
-                  )),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    DetalleNoticia(noticia, index)));
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 10),
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(50), bottomRight: Radius.circular(50)),
+          child: Container(
+              child: (noticia.urlToImage != null)
+                  ? FadeInImage(
+                      placeholder: AssetImage('assets/img/giphy.gif'),
+                      image: NetworkImage(noticia.urlToImage))
+                  : Image(
+                      image: AssetImage('assets/img/no-image.png'),
+                    )),
+        ),
       ),
     );
   }

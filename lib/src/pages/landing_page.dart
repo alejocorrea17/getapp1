@@ -27,14 +27,22 @@ class LandingPage extends StatelessWidget {
         ],
       ),
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            // _encabezado(context),
-            _swiperTarjetas(),
-            _footer(context),
-            _botones(context)
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              // _encabezado(context),
+              SizedBox(
+                height: 10,
+              ),
+              _swiperTarjetas(),
+              SizedBox(
+                height: 10,
+              ),
+              _footer(context),
+              _botones(context)
+            ],
+          ),
         ),
       ),
     );

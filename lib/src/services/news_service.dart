@@ -5,7 +5,7 @@ import 'package:getapp/src/models/news_models.dart';
 import 'package:http/http.dart' as http;
 
 // ignore: non_constant_identifier_names
-final _UrlNews = 'https://newsapi.org/v2';
+final _UrlNews = 'https://newsapi.org/V2';
 // ignore: non_constant_identifier_names
 final _ApiKey = '5a035b12a0014099a37c635437c4053b';
 
@@ -44,7 +44,7 @@ class NewsService with ChangeNotifier {
       this.categoryArticles[this.selectedCategory];
 
   getTopHeadlines() async {
-    final url = '$_UrlNews/top-headlines?apiKey=$_ApiKey&country=co';
+    final url = '$_UrlNews/top-headlines?country=co&apiKey=$_ApiKey';
 
     final resp = await http.get(url);
 
@@ -61,7 +61,7 @@ class NewsService with ChangeNotifier {
     }
 
     final url =
-        '$_UrlNews/top-headlines?apiKey=$_ApiKey&country=co&category=$category';
+        '$_UrlNews/top-headlines?country=co&category=$category&apiKey=$_ApiKey';
 
     final resp = await http.get(url);
 

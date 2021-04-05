@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getapp/src/models/product_model.dart';
 import 'package:getapp/src/pages/tab1_page.dart';
 import 'package:getapp/src/pages/tab2_page.dart';
 import 'package:getapp/src/services/news_service.dart';
@@ -10,7 +11,8 @@ class TabsPage extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => new _NavegacionModel()),
-          ChangeNotifierProvider(create: (_) => new NewsService())
+          ChangeNotifierProvider(create: (_) => new NewsService()),
+          ChangeNotifierProvider(create: (_) => new ProductoModelo())
         ],
         child: Scaffold(
           body: _Paginas(),
