@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:getapp/src/blocs/provider.dart';
 import 'package:getapp/src/pages/home_page.dart';
+import 'package:getapp/src/pages/landing_page.dart';
 //Importaciones propias
 // import 'package:getapp/src/pages/landing_page.dart';
 import 'package:getapp/src/pages/login_page.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Smart Shopping',
       initialRoute: '/',
       routes: {
-        '/': (BuildContext context) => HomePage(),
+        '/': (BuildContext context) => LandingPage(),
         'login': (BuildContext context) => InicioSesion(),
         'registro': (BuildContext context) => Registrarse(),
         'detalle': (BuildContext context) => ProductoDetalle(),
