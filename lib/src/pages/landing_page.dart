@@ -98,35 +98,36 @@ class LandingPage extends StatelessWidget {
   Widget _botones(BuildContext context) {
     return Container(
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SizedBox(width: 15.0),
-          RaisedButton(
+          ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, 'login');
               },
-              elevation: 10.0,
-              textColor: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10.0),
-              color: Colors.blueAccent,
+              // elevation: 10.0,
+              // textColor: Colors.white,
+              // padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10.0),
+              // color: Colors.blueAccent,
               child: Container(
                 child: const Text('Iniciar Sesion',
                     style: TextStyle(fontSize: 20)),
               )),
           SizedBox(
-            width: 10.0,
+            width: 20.0,
           ),
-          RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, 'registro');
-              },
-              elevation: 10.0,
-              textColor: Colors.white,
-              color: Colors.blueAccent,
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10.0),
-              child: Container(
-                child:
-                    const Text('Registrarse', style: TextStyle(fontSize: 20)),
-              ))
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, 'registro');
+            },
+            // elevation: 10.0,
+            // textColor: Colors.white,
+            // color: Colors.blueAccent,
+            // padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10.0),
+            child: Container(
+              child: const Text('Registrarse', style: TextStyle(fontSize: 20)),
+            ),
+          )
         ],
       ),
     );

@@ -10,6 +10,7 @@ class ProductoDetalle extends StatelessWidget {
 
     return Scaffold(
       body: CustomScrollView(
+        physics: BouncingScrollPhysics(),
         slivers: <Widget>[
           _crearAppBar(producto),
           SliverList(
@@ -42,7 +43,7 @@ class ProductoDetalle extends StatelessWidget {
           background: FadeInImage(
             placeholder: AssetImage('assets/img/loading.gif'),
             image: NetworkImage(producto.getBackgroundImg()),
-            fadeInDuration: Duration(microseconds: 150),
+            fadeInDuration: Duration(milliseconds: 150),
             fit: BoxFit.cover,
           )),
     );

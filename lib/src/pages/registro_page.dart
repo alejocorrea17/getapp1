@@ -214,16 +214,16 @@ Widget _crearBoton(RegistroBloc bloc) {
   return StreamBuilder(
     stream: bloc.formValidadoStream,
     builder: (BuildContext context, AsyncSnapshot snapshot) {
-      return RaisedButton(
+      return ElevatedButton(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
             child: Text('Registrar'),
           ),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-          elevation: 1.0,
-          color: Colors.blueAccent,
-          textColor: Colors.white,
+          // shape:
+          //     RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          // elevation: 1.0,
+          // color: Colors.blueAccent,
+          // textColor: Colors.white,
           onPressed: snapshot.hasData ? () => _registro(context, bloc) : null);
     },
   );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:getapp/src/blocs/login_bloc.dart';
 import 'package:getapp/src/blocs/provider.dart';
-import 'package:getapp/src/pages/tabs_page.dart';
+import 'package:getapp/src/pages/home_page.dart';
 
 class InicioSesion extends StatelessWidget {
   @override
@@ -114,16 +114,16 @@ Widget _crearBoton(LoginBloc bloc) {
   return StreamBuilder(
     stream: bloc.formValidadoStream,
     builder: (BuildContext context, AsyncSnapshot snapshot) {
-      return RaisedButton(
+      return ElevatedButton(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
             child: Text('Ingresar'),
           ),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-          elevation: 1.0,
-          color: Colors.blueAccent,
-          textColor: Colors.white,
+          // shape:
+          //     RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          // elevation: 1.0,
+          // color: Colors.blueAccent,
+          // textColor: Colors.white,
           onPressed: snapshot.hasData ? () => _login(context, bloc) : null);
     },
   );
@@ -131,7 +131,7 @@ Widget _crearBoton(LoginBloc bloc) {
 
 _login(BuildContext context, LoginBloc bloc) {
   Navigator.of(context)
-      .pushReplacement(MaterialPageRoute(builder: (context) => TabsPage()));
+      .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
 }
 
 Widget _olvidoContrasena() {

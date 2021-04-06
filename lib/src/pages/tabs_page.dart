@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getapp/src/models/product_model.dart';
+import 'package:getapp/src/pages/carrito_page.dart';
 import 'package:getapp/src/pages/tab1_page.dart';
 import 'package:getapp/src/pages/tab2_page.dart';
 import 'package:getapp/src/services/news_service.dart';
@@ -34,6 +35,8 @@ class _Navegacion extends StatelessWidget {
               icon: Icon(Icons.person_outline), label: ('Para ti')),
           BottomNavigationBarItem(
               icon: Icon(Icons.public), label: ('Recomendados')),
+              BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart), label: ('Carrito')),
           // ,title: Text('Recomendados')
           // BottomNavigationBarItem(
           //     icon: Icon(Icons.shopping_cart), title: Text('Carrito')),
@@ -55,6 +58,7 @@ class _Paginas extends StatelessWidget {
       children: <Widget>[
         Tab1Page(),
         Tab2Page(),
+        Carrito(),
         Container(
           color: Colors.black87,
         )

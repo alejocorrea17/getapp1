@@ -32,13 +32,15 @@ class _Noticia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productoModel = Provider.of<ProductoModelo>(context);
+
     return Column(
       children: <Widget>[
         _TarjetaTopBar(noticia, index),
         _TarjetaTitulo(noticia),
         _TarjetaImagen(noticia, index),
         _TarjetaBody(noticia),
-        _TarjetaBotones(noticia, false, false, ''),
+        _TarjetaBotones(noticia, productoModel.liked, true, ''),
         SizedBox(
           height: 10.0,
         ),
@@ -60,8 +62,6 @@ class _TarjetaBotones extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productoModel = Provider.of<ProductoModelo>(context);
-
     return Container(
         child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -70,13 +70,13 @@ class _TarjetaBotones extends StatelessWidget {
           onPressed: () {
             final productoModel =
                 Provider.of<ProductoModelo>(context, listen: false);
-            productoModel.liked = this.liked;
+            productoModel.liked = true;
           },
           fillColor: miTema.accentColor,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: Icon(Icons.star,
-              color: (productoModel.liked) ? Colors.yellow : Colors.white),
+              color: (this.liked) ? Colors.yellow : Colors.white),
         ),
         RawMaterialButton(
           onPressed: () {},
