@@ -68,9 +68,10 @@ class _TarjetaBotones extends StatelessWidget {
       children: <Widget>[
         RawMaterialButton(
           onPressed: () {
+            // liked = true;
             final productoModel =
                 Provider.of<ProductoModelo>(context, listen: false);
-            productoModel.liked = true;
+            productoModel.liked = this.liked;
           },
           fillColor: miTema.accentColor,
           shape:
@@ -83,7 +84,7 @@ class _TarjetaBotones extends StatelessWidget {
           fillColor: Colors.grey,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Icon(Icons.more),
+          child: Icon(Icons.message),
         ),
         RawMaterialButton(
           onPressed: () {},

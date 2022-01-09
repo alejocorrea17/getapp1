@@ -15,7 +15,7 @@ class LandingPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text('Smart Shopping'),
+        title: Text('Social MarketS'),
         backgroundColor: Colors.blueAccent,
         actions: <Widget>[
           IconButton(

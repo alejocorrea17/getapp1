@@ -35,7 +35,7 @@ class _Navegacion extends StatelessWidget {
               icon: Icon(Icons.person_outline), label: ('Para ti')),
           BottomNavigationBarItem(
               icon: Icon(Icons.public), label: ('Recomendados')),
-              BottomNavigationBarItem(
+          BottomNavigationBarItem(
               icon: Icon(Icons.shopping_cart), label: ('Carrito')),
           // ,title: Text('Recomendados')
           // BottomNavigationBarItem(

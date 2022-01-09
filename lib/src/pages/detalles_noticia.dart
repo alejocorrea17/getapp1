@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getapp/src/models/news_models.dart';
+import 'package:getapp/src/pages/carrito_page.dart';
 import 'package:getapp/src/theme/tema.dart';
 
 class DetalleNoticia extends StatelessWidget {
@@ -137,14 +138,18 @@ class _TarjetaBotones extends StatelessWidget {
           child: Icon(Icons.star, color: Colors.white),
         ),
         RawMaterialButton(
-          onPressed: () {},
+          onPressed: () {
+            _Mensajes('Hola');
+          },
           fillColor: Colors.grey,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Icon(Icons.more),
+          child: Icon(Icons.add_comment),
         ),
         RawMaterialButton(
-          onPressed: () {},
+          onPressed: () {
+            Carrito();
+          },
           fillColor: Colors.green,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -152,5 +157,18 @@ class _TarjetaBotones extends StatelessWidget {
         )
       ],
     ));
+  }
+}
+
+class _Mensajes extends StatelessWidget {
+  final String texto;
+
+  const _Mensajes(this.texto);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text('Hola' + texto),
+    );
   }
 }

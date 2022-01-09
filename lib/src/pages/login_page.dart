@@ -168,7 +168,7 @@ Widget _crearFondo(BuildContext context) {
                 width: double.infinity,
               ),
               Text(
-                'Smart Shopping',
+                'Social Market',
                 style: TextStyle(color: Colors.white, fontSize: 25.0),
               )
             ],
