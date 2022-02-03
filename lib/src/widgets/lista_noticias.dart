@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:getapp/src/models/news_models.dart';
 import 'package:getapp/src/models/product_model.dart';
+import 'package:getapp/src/pages/carrito_page.dart';
 import 'package:getapp/src/pages/detalles_noticia.dart';
 import 'package:getapp/src/theme/tema.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +41,7 @@ class _Noticia extends StatelessWidget {
         _TarjetaTitulo(noticia),
         _TarjetaImagen(noticia, index),
         _TarjetaBody(noticia),
-        _TarjetaBotones(noticia, productoModel.liked, true, ''),
+        _TarjetaBotones(noticia, index, productoModel.liked, true, ''),
         SizedBox(
           height: 10.0,
         ),
@@ -52,13 +53,13 @@ class _Noticia extends StatelessWidget {
 
 class _TarjetaBotones extends StatelessWidget {
   final Article noticia;
-
+  final int index;
   final bool liked;
   final bool agregadoCarrito;
   final String comentario;
 
-  _TarjetaBotones(
-      this.noticia, this.liked, this.agregadoCarrito, this.comentario);
+  _TarjetaBotones(this.noticia, this.index, this.liked, this.agregadoCarrito,
+      this.comentario);
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +88,13 @@ class _TarjetaBotones extends StatelessWidget {
           child: Icon(Icons.message),
         ),
         RawMaterialButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        Carrito(noticia, index)));
+          },
           fillColor: Colors.green,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

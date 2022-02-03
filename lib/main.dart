@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Social Market',
       initialRoute: '/',
       routes: {
-        '/': (BuildContext context) => LandingPage(),
+        '/': (BuildContext context) => HomePage(),
         'login': (BuildContext context) => InicioSesion(),
         'registro': (BuildContext context) => Registrarse(),
         'detalle': (BuildContext context) => ProductoDetalle(),

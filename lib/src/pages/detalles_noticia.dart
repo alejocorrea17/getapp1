@@ -13,12 +13,19 @@ class DetalleNoticia extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          centerTitle: false,
-          title: Text('Smart Shopping'),
-          backgroundColor: Colors.blueAccent),
+        iconTheme: IconThemeData(
+          color: Colors.black, //change your color here
+        ),
+        title: Text(
+          'Social Market',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+      ),
       body: Container(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: BouncingScrollPhysics(), 
           child: Column(
             children: [
               SizedBox(height: 10),
@@ -148,7 +155,7 @@ class _TarjetaBotones extends StatelessWidget {
         ),
         RawMaterialButton(
           onPressed: () {
-            Carrito();
+            Carrito(null, 0);
           },
           fillColor: Colors.green,
           shape:

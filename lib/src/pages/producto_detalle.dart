@@ -30,7 +30,7 @@ class ProductoDetalle extends StatelessWidget {
   Widget _crearAppBar(Producto producto) {
     return SliverAppBar(
       elevation: 2.0,
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: Colors.white,
       expandedHeight: 350.0,
       floating: false,
       pinned: true,

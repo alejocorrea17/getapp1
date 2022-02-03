@@ -55,7 +55,7 @@ class _Paginas extends StatelessWidget {
       children: <Widget>[
         Tab1Page(),
         Tab2Page(),
-        Carrito(),
+        Carrito(null,0),
         Container(
           color: Colors.black87,
         )
