@@ -86,20 +86,19 @@ class _Noticia extends StatefulWidget {
 class _NoticiaState extends State<_Noticia> {
   @override
   Widget build(BuildContext context) {
-    final productoModel = Provider.of<ProductoModelo>(context);
     final controller = Get.put(Controller());
     List<String> mensajes2 = [];
+    print('aca vamos');
 
     return Column(
       children: <Widget>[
         _TarjetaTopBar(widget.noticia, widget.index),
         _TarjetaTitulo(widget.noticia),
-        _TarjetaImagen(widget.noticia, widget.index),
+        _TarjetaImagen(widget.noticia, widget.index, widget.mensajes),
         _TarjetaBody(widget.noticia),
         widget.favoritos == true || widget.carrito == true
             ? SizedBox()
-            : _TarjetaBotones(
-                widget.noticia, widget.index, productoModel.liked, true, ''),
+            : TarjetaBotones(widget.noticia, widget.index, true, ''),
         Container(
           height: 50,
           child: GetBuilder<Controller>(
@@ -110,8 +109,9 @@ class _NoticiaState extends State<_Noticia> {
               if (widget.mensajes != null) {
                 for (var item in widget.mensajes) {
                   mensajes2.addAllIf(
-                      item.keys.toString() == '(${widget.noticia.title})',
-                      item.values);
+                    item.keys.toString() == '(${widget.noticia.title})',
+                    item.values,
+                  );
                 }
               }
 
@@ -166,15 +166,14 @@ class _NoticiaState extends State<_Noticia> {
   }
 }
 
-class _TarjetaBotones extends StatelessWidget {
+class TarjetaBotones extends StatelessWidget {
   final Article noticia;
   final int index;
-  final bool liked;
   final bool agregadoCarrito;
   final String comentario;
 
-  _TarjetaBotones(this.noticia, this.index, this.liked, this.agregadoCarrito,
-      this.comentario);
+  TarjetaBotones(
+      this.noticia, this.index, this.agregadoCarrito, this.comentario);
 
   @override
   Widget build(BuildContext context) {
@@ -185,25 +184,30 @@ class _TarjetaBotones extends StatelessWidget {
       children: <Widget>[
         RawMaterialButton(
           onPressed: () {
+            print('man');
             controller.guardarEnFavoritos(noticia);
-            final productoModel =
-                Provider.of<ProductoModelo>(context, listen: false);
-            productoModel.liked = this.liked;
           },
           fillColor: miTema.accentColor,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Icon(Icons.star,
-              color: (this.liked) ? Colors.yellow : Colors.white),
+          child: Icon(Icons.star, color: Colors.white),
         ),
         RawMaterialButton(
           onPressed: () {
+            print('controller.indexMensajeActivo: ' +
+                controller.indexMensajeActivo.toString());
+
+            print('index: ' + index.toString());
             if (controller.indexMensajeActivo == index) {
               controller.indexMensajeActivo = null;
             } else {
               controller.indexMensajeActivo = index;
             }
             controller.update(['index']);
+            print('controller.indexMensajeActivo2: ' +
+                controller.indexMensajeActivo.toString());
+
+            print('index2: ' + index.toString());
           },
           fillColor: Colors.grey,
           shape:
@@ -241,13 +245,15 @@ class _TarjetaBody extends StatelessWidget {
 class _TarjetaImagen extends StatelessWidget {
   final Article noticia;
   final int index;
+  final List<Map<String, String>> mensajes;
 
-  const _TarjetaImagen(this.noticia, this.index);
+  const _TarjetaImagen(this.noticia, this.index, this.mensajes);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        print('hola mundo');
         Navigator.push(
             context,
             MaterialPageRoute(

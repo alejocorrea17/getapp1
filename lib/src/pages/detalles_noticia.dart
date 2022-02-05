@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:getapp/src/controller/controller.dart';
 import 'package:getapp/src/models/news_models.dart';
 import 'package:getapp/src/pages/carrito_page.dart';
 import 'package:getapp/src/theme/tema.dart';
+import 'package:getapp/src/widgets/lista_noticias.dart';
 
 class DetalleNoticia extends StatelessWidget {
   final Article noticia;
@@ -11,38 +14,121 @@ class DetalleNoticia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black, //change your color here
-        ),
-        title: Text(
-          'Social Market',
-          style: TextStyle(color: Colors.black),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-      ),
-      body: Container(
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              SizedBox(height: 10),
-              _TarjetaTopBar(noticia, index),
-              SizedBox(height: 10),
-              _TarjetaTitulo(noticia),
-              SizedBox(height: 10),
-              _ImagenNoticia(noticia),
-              SizedBox(height: 10),
-              _TarjetaBody(noticia),
-              SizedBox(height: 10),
-              _TarjetaBotones(noticia, index)
-            ],
-          ),
-        ),
-      ),
-    );
+    List<Map<String, String>> mensajes = [];
+
+    List<String> mensajes2 = [];
+    final controller = Get.put(Controller());
+    return GetBuilder<Controller>(
+        id: 'inicio',
+        builder: (_) {
+          return FutureBuilder(
+              future: controller.traerMensajes(),
+              builder: (context, snapshot) {
+                mensajes = snapshot.data;
+
+                return Scaffold(
+                  appBar: AppBar(
+                    iconTheme: IconThemeData(
+                      color: Colors.black, //change your color here
+                    ),
+                    title: Text(
+                      'Social Market',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    centerTitle: true,
+                    backgroundColor: Colors.white,
+                  ),
+                  body: Container(
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 10),
+                          _TarjetaTopBar(noticia, index),
+                          SizedBox(height: 10),
+                          _TarjetaTitulo(noticia),
+                          SizedBox(height: 10),
+                          _ImagenNoticia(noticia),
+                          SizedBox(height: 10),
+                          _TarjetaBody(noticia),
+                          SizedBox(height: 10),
+                          TarjetaBotones(noticia, index, true, ''),
+                          Container(
+                            height: 50,
+                            child: GetBuilder<Controller>(
+                              id: 'mensaje',
+                              builder: (_) {
+                                print('mensajes sin filtro: ' +
+                                    mensajes.toString());
+                                mensajes2 = [];
+                                if (mensajes != null) {
+                                  for (var item in mensajes) {
+                                    mensajes2.addAllIf(
+                                      item.keys.toString() ==
+                                          '(${noticia.title})',
+                                      item.values,
+                                    );
+                                  }
+                                }
+
+                                return ListView.builder(
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  itemCount: mensajes2.length,
+                                  itemBuilder: (context, index) {
+                                    return Text(mensajes2[index]);
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                          GetBuilder<Controller>(
+                            id: 'index',
+                            builder: (_) {
+                              return Container(
+                                child: index == controller.indexMensajeActivo
+                                    ? Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12.0),
+                                        child: TextField(
+                                          controller: controller.mensaje,
+                                          decoration: InputDecoration(
+                                            labelText: 'Escribe un mensaje...',
+                                            suffixIcon: IconButton(
+                                              icon: Icon(Icons.send),
+                                              onPressed: () {
+                                                if (controller.mensaje.text !=
+                                                    '') {
+                                                  controller.mensajesGlobales
+                                                      .add({
+                                                    noticia.title:
+                                                        controller.mensaje.text
+                                                  });
+                                                  controller.mensaje.text = '';
+                                                  controller
+                                                      .guardarMensajesEnMemoria();
+                                                  controller
+                                                      .update(['mensaje']);
+                                                  controller.update(['inicio']);
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : SizedBox(),
+                              );
+                            },
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              });
+        });
   }
 }
 
@@ -121,61 +207,6 @@ class _TarjetaTopBar extends StatelessWidget {
           Text('${noticia.source.name}'),
         ],
       ),
-    );
-  }
-}
-
-class _TarjetaBotones extends StatelessWidget {
-  final Article noticia;
-  final int index;
-
-  _TarjetaBotones(this.noticia, this.index);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        RawMaterialButton(
-          onPressed: () {},
-          fillColor: miTema.accentColor,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Icon(Icons.star, color: Colors.white),
-        ),
-        RawMaterialButton(
-          onPressed: () {
-            _Mensajes('Hola');
-          },
-          fillColor: Colors.grey,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Icon(Icons.add_comment),
-        ),
-        RawMaterialButton(
-          onPressed: () {
-            // Carrito(null, 0);
-          },
-          fillColor: Colors.green,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Icon(Icons.add_shopping_cart),
-        )
-      ],
-    ));
-  }
-}
-
-class _Mensajes extends StatelessWidget {
-  final String texto;
-
-  const _Mensajes(this.texto);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text('Hola' + texto),
     );
   }
 }

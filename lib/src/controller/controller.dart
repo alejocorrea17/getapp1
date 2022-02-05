@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getapp/src/models/news_models.dart';
@@ -101,7 +99,6 @@ class Controller extends GetxController {
   Future<List<Map<String, String>>> traerMensajes() async {
     List<Map<String, String>> mensajeria = [];
     List<dynamic> lista = await _sharedPref.read('mensajes');
-    print('lista: ' + lista.toString());
     if (lista != null) {
       lista.forEach((element) {
         Map<String, String> mapa = Map<String, String>.from(element);
