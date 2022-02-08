@@ -88,7 +88,6 @@ class _NoticiaState extends State<_Noticia> {
   Widget build(BuildContext context) {
     final controller = Get.put(Controller());
     List<String> mensajes2 = [];
-    print('aca vamos');
 
     return Column(
       children: <Widget>[
@@ -104,7 +103,6 @@ class _NoticiaState extends State<_Noticia> {
           child: GetBuilder<Controller>(
             id: 'mensaje',
             builder: (_) {
-              print('mensajes sin filtro: ' + widget.mensajes.toString());
               mensajes2 = [];
               if (widget.mensajes != null) {
                 for (var item in widget.mensajes) {
@@ -184,7 +182,7 @@ class TarjetaBotones extends StatelessWidget {
       children: <Widget>[
         RawMaterialButton(
           onPressed: () {
-            print('man');
+            print('click favoritos');
             controller.guardarEnFavoritos(noticia);
           },
           fillColor: miTema.accentColor,
@@ -253,7 +251,6 @@ class _TarjetaImagen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('hola mundo');
         Navigator.push(
             context,
             MaterialPageRoute(

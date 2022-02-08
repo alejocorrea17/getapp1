@@ -58,8 +58,6 @@ class DetalleNoticia extends StatelessWidget {
                             child: GetBuilder<Controller>(
                               id: 'mensaje',
                               builder: (_) {
-                                print('mensajes sin filtro: ' +
-                                    mensajes.toString());
                                 mensajes2 = [];
                                 if (mensajes != null) {
                                   for (var item in mensajes) {

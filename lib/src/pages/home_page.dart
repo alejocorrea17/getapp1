@@ -58,7 +58,7 @@ class _Navegacion extends StatelessWidget {
               label: 'Carrito'),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.favorite,
+              Icons.star,
               color: Colors.black,
             ),
             label: 'Favoritos',
@@ -141,23 +141,6 @@ class _FavoritosState extends State<Favoritos> {
     );
   }
 }
-
-// List<Map<String, dynamic>> subjects = [
-//   {'subjectName': 'Ingles', 'teacherName': 'Profesor 1'},
-//   {'subjectName': 'Matematicas', 'teacherName': 'Profesor 2'},
-//   {'subjectName': 'Ingles', 'teacherName': 'Profesor 1'},
-// ];
-
-// final Map<String, dynamic> mapFilter = {};
-
-// for (Map<String, dynamic> myMap in subjects) {
-//   mapFilter[myMap['subjectName']] = myMap;
-// }
-
-// final List<Map<String, dynamic>> listFilter =
-//     mapFilter.keys.map((key) => mapFilter[key] as Map<String,dynamic>).toList();
-
-// print(listFilter);
 
 //Esta clase va implementar el provider para que otros Widgets puedan hacer uso de la pagina actual
 class _NavegacionModel with ChangeNotifier {
