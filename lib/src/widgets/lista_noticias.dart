@@ -49,6 +49,7 @@ class ListaNoticias extends StatelessWidget {
                                     if (favoritos == true) {
                                       await controller.eliminarDeFavoritos(
                                           context, this.noticias[index].title);
+                                      controller.update(['estrella']);
                                     }
                                     if (carrito == true) {
                                       await controller.eliminarDeCarrito(
@@ -180,15 +181,36 @@ class TarjetaBotones extends StatelessWidget {
         child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        RawMaterialButton(
-          onPressed: () {
-            print('click favoritos');
-            controller.guardarEnFavoritos(noticia);
+        GetBuilder<Controller>(
+          id: 'estrella',
+          builder: (_) {
+            return RawMaterialButton(
+              onPressed: () {
+                // print('click favoritos');
+                print(noticia.toJson().toString());
+                // controller.guardarEnFavoritos(noticia);
+                // controller.update(['estrella']);
+              },
+              fillColor: miTema.accentColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              child: Builder(builder: (context) {
+                bool estaAgregado = false;
+                controller.articulosFavoritos.forEach(
+                  (element) {
+                    if (element.title.toString() == noticia.title.toString()) {
+                      estaAgregado = true;
+                    }
+                  },
+                );
+                if (estaAgregado) {
+                  return Icon(Icons.star, color: Colors.yellow);
+                } else {
+                  return Icon(Icons.star, color: Colors.white);
+                }
+              }),
+            );
           },
-          fillColor: miTema.accentColor,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Icon(Icons.star, color: Colors.white),
         ),
         RawMaterialButton(
           onPressed: () {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:getapp/src/controller/controller.dart';
 import 'package:getapp/src/models/category_model.dart';
 import 'package:getapp/src/services/news_service.dart';
 import 'package:getapp/src/theme/tema.dart';
@@ -9,12 +11,19 @@ class Tab2Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newsService = Provider.of<NewsService>(context);
+    final controller = Get.put(Controller());
+
+    print(newsService.getArticulosCategoria.toList().toString());
     return SafeArea(
       child: Scaffold(
         body: Column(
           children: <Widget>[
             _ListaCategorias(),
-            Expanded(child: ListaNoticias(newsService.getArticulosCategoria))
+            Expanded(
+                child: ListaNoticias(
+                    newsService.getArticulosCategoria.length == 0
+                        ? controller.articulosPorDefecto
+                        : newsService.getArticulosCategoria))
           ],
         ),
       ),
